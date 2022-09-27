@@ -22,6 +22,10 @@ while True:
     time.sleep(0.1)
     snake.move_snake()
     screen.update()
+
+    # picking food 
+    if snake.head.distance(food.snack) < 15:
+        food.relocate()
     
 
 

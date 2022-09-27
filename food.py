@@ -10,4 +10,8 @@ class Food:
         self.snack.goto(randint(-280, 280),randint(-280, 280))
 
 
+    def relocate(self):
+        self.snack.goto(randint(-280, 280),randint(-280, 280))
+
+
 
