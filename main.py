@@ -1,3 +1,4 @@
+from doctest import script_from_examples
 from turtle import Turtle, Screen
 from snake import Snake
 import time
@@ -20,20 +21,32 @@ screen.onkey(key='Down', fun=snake.down)
 screen.onkey(key='Right', fun=snake.right)
 screen.onkey(key='Left', fun=snake.left)
 
-while True:
+game_on = True
+while game_on:
     time.sleep(0.1)
-    snake.move_snake()
+    snake.move()
     screen.update()
 
     # picking food 
     if snake.head.distance(food.snack) < 15:
         scoreboard.update_score()
+        snake.grow()
         food.relocate()
 
     # detect collision with wall
-    if snake.head.xcor() > 270 or snake.head.xcor() < -270 or snake.head.ycor() > 280 or snake.head.ycor() < -270:
+    if snake.head.xcor() > 270 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -270:
         scoreboard.game_over()
-        break
+        game_on = False
+
+
+    # detect collision with snake
+    for body_part in snake.body_parts:
+        if body_part == snake.head:
+            continue
+        if snake.head.distance(body_part) < 10:
+            scoreboard.game_over()
+            game_on = False
+
     
 
 
